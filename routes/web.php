@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\CountryController;
+use App\Http\Controllers\MerchantController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+// return view('welcome');
+// });
+Route::redirect('/', 'country');
+Route::resource('country', CountryController::class);
+Route::resource('merchant', MerchantController::class);
