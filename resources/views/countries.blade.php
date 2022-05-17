@@ -22,7 +22,7 @@
         @foreach ($countries as $country)
         <tr>
             <td> {{ $country->id }} </td>
-            <td> {{ $country->country_name }} </td>
+            <td> <a href="{{url('merchant')}}?country_id={{ $country->id }}">{{ $country->country_name }}</a> </td>
             <td> {{ $country->country_code }} </td>
             <td>
                 <input type="button" value="show" onclick='showCities("{{ $country->id }}")'>
@@ -41,7 +41,13 @@
         @endforeach
     </table>
     @endif
-    <p> <input type="button" value="New Country" onClick="newCountry()"> </p>
+    <p>
+    <form>
+        <input name='search_query'/>
+        <input type='submit' value='Search' />
+    </form>
+    <br>
+    <input type="button" value="New Country" onClick="newCountry()"> </p>
     <script>
         function showCities(countryID) {
             window.location.href = "country/" + countryID;

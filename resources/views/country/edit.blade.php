@@ -17,10 +17,5 @@
         <input type='submit'/>
         <a href="{{url('country')}}">Back</a>
     </form>
-    <pre>
-    {{
-        print_r($country)
-    }}
-    </pre>
 </body>
 </html>

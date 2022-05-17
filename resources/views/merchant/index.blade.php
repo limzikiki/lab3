@@ -9,7 +9,7 @@
 <body>
     <x-navigation />
     @if (count($merchants) == 0)
-    <p color="red">There are no records in the database!</p>
+    <p color="red">There are no records according to your query in the database!</p>
     @else
     <table class="tg" style="border: 1px solid black">
         <thead>
@@ -39,6 +39,26 @@
         </tbody>
     </table>
     @endif
+    <br>
+    <form>
+        <input name='search_query'/>
+        <select name='country_id' required>
+            @if (app('request')->input('country_id') == null)
+            <option disabled selected hidden>Please Choose Country</option>
+            @endif
+            <option value='-1'>None</option>
+            @foreach ($all_countries as $country)
+            @if( $country->id == app('request')->input('country_id'))
+            <option value='{{$country->id}}' selected> {{$country->country_name}} </option>
+            @else
+            <option value='{{$country->id}}'> {{$country->country_name}} </option>
+            @endif
+            @endforeach
+        </select>
+        <input type='submit' value='Search' />
+    </form>
+    <bt>
+
     <a href="{{action([App\Http\Controllers\MerchantController::class, 'create'])}}">Crete Merchant</a>
 
 </body>

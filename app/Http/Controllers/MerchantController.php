@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Merchant;
 use App\Models\Country;
+use Illuminate\Support\Facades\DB;
 
 class MerchantController extends Controller
 {
@@ -13,10 +14,21 @@ class MerchantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $merchants = Merchant::all();
-        return view('merchant.index', compact('merchants'));
+        $merchants = Merchant::query();
+        $all_countries = Country::all();
+        $search_query = $request -> search_query;
+        $country_id = $request -> country_id;
+        if($country_id != null && $country_id != -1){
+            $merchants = $merchants->where("country_id", $country_id);
+        }
+
+        if($search_query != null){
+            $merchants -> where('name', 'LIKE', '%'.$search_query.'%');
+        }
+        $merchants = $merchants -> get();
+        return view('merchant.index', compact('merchants', 'all_countries'));
     }
 
     /**

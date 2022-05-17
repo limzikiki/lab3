@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Country;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class CountryController extends Controller
 {
@@ -15,8 +15,12 @@ class CountryController extends Controller
      */
     public function index(Request $request)
     {
-        Log::info($request);
-        $countries = Country::all();
+        $countries =  DB::table('countries');
+        $search_query = $request -> search_query;
+        if($search_query != null){
+            $countries -> where('country_name', 'LIKE', '%'.$search_query.'%');
+        }
+        $countries = $countries->get();
         return view('countries', compact('countries'));
     }
 
