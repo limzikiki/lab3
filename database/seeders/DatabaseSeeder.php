@@ -16,7 +16,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $country = Country::create([
             'country_name' => 'Germany',
             'country_code' => 'DE'
